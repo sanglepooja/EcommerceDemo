@@ -7,7 +7,25 @@
 //
 
 import UIKit
+import ObjectMapper
 
-class Variants: NSObject {
-
+class Variants: Mappable {
+    
+    var _id : Int?
+    var color : String?
+    var size : Int?
+    var price : Int?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        
+        self._id <- map["id"];
+        self.color <- map["color"]
+        self.size <- map["size"];
+        self.price <- map["price"]
+        
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  Tax.swift
+//  RankingProduct.swift
 //  EcommerceDemo
 //
 //  Created by Faasos on 02/05/17.
@@ -9,10 +9,10 @@
 import UIKit
 import ObjectMapper
 
-class Tax: Mappable {
-    
-    var name : String?
-    var value : Int?
+class RankingProduct: Mappable {
+
+    var _id : Int?
+    var view_count : Int?
     
     required init?(map: Map) {
         
@@ -20,7 +20,7 @@ class Tax: Mappable {
     
     func mapping(map: Map) {
         
-        self.name <- map["name"];
-        self.value <- map["value"]
+        self._id <- map["id"];
+        self.view_count <- map["view_count"]
     }
 }

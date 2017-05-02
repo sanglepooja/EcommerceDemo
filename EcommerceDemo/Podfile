@@ -10,10 +10,10 @@ pod 'AlamofireObjectMapper'
 pod 'AlamofireDomain'
 pod 'AlamofireImage'
 pod 'DrawerController'
+pod "PKHUD"
 #pod 'SQLite.swift', '~> 0.10'
 #pod 'Kingfisher', '~> 2.0'
 #pod 'IQKeyboardManagerSwift'
-#pod "PKHUD"
 #pod 'GoogleMaps', '~> 1.12'
 #pod 'ReachabilitySwift', :git => 'https://github.com/ashleymills/Reachability.swift'
 #pod 'Fabric', '~> 1.6'

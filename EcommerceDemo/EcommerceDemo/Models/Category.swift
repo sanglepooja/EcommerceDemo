@@ -11,12 +11,23 @@ import ObjectMapper
 
 class Category: Mappable {
 
+    var _id : Int?
+    var name : String?
+    var products : [Product] = []
+    var child_categories : [Int] = []
+    var categories : [Category] = []
+    
     
     required init?(map: Map) {
+        
     }
     
     func mapping(map: Map) {
         
-    
+        self._id <- map["id"]
+        self.name <- map["name"]
+        self.products <- map["products"]
+        self.child_categories <- map["child_categories"]
     }
 }
+    

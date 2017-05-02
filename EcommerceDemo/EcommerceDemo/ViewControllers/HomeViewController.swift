@@ -17,7 +17,12 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let productManager = ProductManager.sharedInstance
-        var arrayProducts = productManager.apiGetProducts()
+        productManager.apiGetProductsCollection(completion: { arrayCategories in
+            
+            
+        }) { (error, code, message) in
+            
+        }
         
         
     }

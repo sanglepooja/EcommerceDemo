@@ -20,7 +20,7 @@ class NetworkManager: NSObject {
         
     }
     
-    func apiGet(apiName:String ,completion: @escaping (_ result: AnyObject, _ code:Int) -> Void, failure: (_ error: NSError, _ code:Int, _ message: String) -> Void) {
+    func apiGet(apiName:String ,completion: @escaping (_ result: AnyObject, _ code:Int) -> Void, failure: @escaping (_ error: NSError, _ code:Int, _ message: String) -> Void) {
         
         let urlEncodedString: String = (self.url?.addingPercentEncoding(withAllowedCharacters: CharacterSet.whitespaces.inverted))!
         
@@ -30,11 +30,10 @@ class NetworkManager: NSObject {
             case .success:
                 
                 let json = response.result.value
-                print(json as AnyObject)
                 completion(json as AnyObject,(response.response?.statusCode)!)
                 
             case .failure(let error):
-                print(error)
+                failure(error as NSError, (response.response?.statusCode)!, error.localizedDescription)
             }
         }
     }

@@ -11,12 +11,25 @@ import ObjectMapper
 
 class Product: Mappable {
     
+    var _id : Int?
+    var name : String?
+    var date_added : String?
+    var variants : [Variants] = []
+    var tax : Tax?
+    
     required init?(map: Map) {
         
     }
     
     func mapping(map: Map) {
         
+        self._id <- map["id"];
+        self.name <- map["name"]
+        self.date_added <- map["date_added"];
+        self.tax <- map["tax"]
+        self.variants <- map["variants"];
         
     }
 }
+
+
