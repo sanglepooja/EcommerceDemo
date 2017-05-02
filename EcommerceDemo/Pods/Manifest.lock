@@ -6,13 +6,14 @@ PODS:
   - AlamofireObjectMapper (4.1.0):
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
-  - DrawerController (3.1.0):
-    - DrawerController/Core (= 3.1.0)
-    - DrawerController/DrawerVisualStates (= 3.1.0)
-  - DrawerController/Core (3.1.0)
-  - DrawerController/DrawerVisualStates (3.1.0):
+  - DrawerController (3.2.0):
+    - DrawerController/Core (= 3.2.0)
+    - DrawerController/DrawerVisualStates (= 3.2.0)
+  - DrawerController/Core (3.2.0)
+  - DrawerController/DrawerVisualStates (3.2.0):
     - DrawerController/Core
   - ObjectMapper (2.2.6)
+  - PKHUD (4.2.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -20,15 +21,17 @@ DEPENDENCIES:
   - AlamofireImage
   - AlamofireObjectMapper
   - DrawerController
+  - PKHUD
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireDomain: 6a17c975e5fe8c10d8dbfdb1ab28e6dd0ae7cd41
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
-  DrawerController: 89efc782dd732c0ec7891910a6bcca01433fad32
+  DrawerController: 88b22b4cf97921128f52714db207857cdfff223d
   ObjectMapper: 042708195cc46c20871cbcbec0453826398273fd
+  PKHUD: 957ce2a68b3c97a51839b30216120c1dbc0c3a78
 
-PODFILE CHECKSUM: dafff5689680c5ab033042d80a5b195ae14a7c27
+PODFILE CHECKSUM: eafa8fe10269d1a48081b66ee0c4db9554e23397
 
 COCOAPODS: 1.1.1

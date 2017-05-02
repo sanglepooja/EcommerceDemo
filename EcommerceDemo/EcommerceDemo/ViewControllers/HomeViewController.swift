@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import PKHUD
 
 class HomeViewController: UIViewController {
 
@@ -17,8 +18,11 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let productManager = ProductManager.sharedInstance
+        HUD.show(.labeledProgress(title: "Loading...", subtitle: "Please wait"), onView: self.view!)
+        
         productManager.apiGetProductsCollection(completion: { arrayCategories in
             
+            HUD.hide()
             
         }) { (error, code, message) in
             
