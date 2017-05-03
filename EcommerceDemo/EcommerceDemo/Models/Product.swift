@@ -16,6 +16,9 @@ class Product: Mappable {
     var date_added : String?
     var variants : [Variants] = []
     var tax : Tax?
+    var view_count : Int?
+    var order_count : Int?
+    var shares : Int?
     
     required init?(map: Map) {
         

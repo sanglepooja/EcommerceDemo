@@ -13,6 +13,8 @@ class RankingProduct: Mappable {
 
     var _id : Int?
     var view_count : Int?
+    var order_count : Int?
+    var shares : Int?
     
     required init?(map: Map) {
         
@@ -22,5 +24,7 @@ class RankingProduct: Mappable {
         
         self._id <- map["id"];
         self.view_count <- map["view_count"]
+        self.order_count <- map["order_count"]
+        self.shares <- map["shares"]
     }
 }

@@ -27,6 +27,7 @@ class ProductManager: NSObject {
             
             self.manageAllCategoriesMapping(categories: menu.categories)
             self.findRootCategories()
+            self.mapRankingsWithCategoryProducts(rankings: menu.rankings)
         
             completion(self.arrayRootCategories)
         
@@ -79,6 +80,7 @@ class ProductManager: NSObject {
                     for childCategory in arrayChildCategories {
                         
                        let allChildCategories = getAllMappedChildCategories(category: childCategory, fromCategorySet: allCategories)
+                        
                         childCategory.categories.append(contentsOf: allChildCategories)
                     }
                     
@@ -107,6 +109,56 @@ class ProductManager: NSObject {
                 self.arrayRootCategories.append(category)
             }
             
+        }
+    }
+    
+    func mapRankingsWithCategoryProducts(rankings: [Ranking]) -> Void {
+        
+        
+        for ranking in rankings {
+            
+            self.searchProductAndMapRanking(arrayCategory: self.arrayRootCategories, ranking: ranking)
+        }
+    }
+    
+    func searchProductAndMapRanking(arrayCategory:[Category], ranking: Ranking) -> Void {
+        
+        for category in arrayCategory {
+            
+            if !category.products.isEmpty {
+                
+                for product in ranking.products {
+                    
+                    let productArray = category.products.filter() {
+                        
+                        $0._id == product._id
+                    }
+                    
+                    if !productArray.isEmpty {
+                        
+                        let actualProduct = productArray.first
+                        switch ranking.ranking! {
+                        case .MostOrdeRedProducts:
+                            
+                            actualProduct?.order_count = product.order_count
+                            break
+                        case .MostShaRedProducts:
+                            
+                            actualProduct?.shares = product.shares
+                            break
+                            
+                        case .MostViewedProducts:
+                            
+                            actualProduct?.view_count = product.view_count
+                            break
+                            
+                        }
+                    }
+                }
+            } else if !category.categories.isEmpty {
+                
+                searchProductAndMapRanking(arrayCategory: category.categories, ranking: ranking)
+            }
         }
     }
 }

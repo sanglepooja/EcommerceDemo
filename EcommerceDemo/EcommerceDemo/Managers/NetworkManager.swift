@@ -32,8 +32,10 @@ class NetworkManager: NSObject {
                 let json = response.result.value
                 completion(json as AnyObject,(response.response?.statusCode)!)
                 
-            case .failure(let error):
-                failure(error as NSError, (response.response?.statusCode)!, error.localizedDescription)
+                break
+                
+            case .failure: break
+//                failure(error as NSError, (response.response?.statusCode)!, error.localizedDescription)
             }
         }
     }

@@ -11,6 +11,8 @@ import ObjectMapper
 import PKHUD
 
 class HomeViewController: UIViewController {
+    
+    var categoryView : CategoryView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class HomeViewController: UIViewController {
         productManager.apiGetProductsCollection(completion: { arrayCategories in
             
             HUD.hide()
+            self.makeCategoryView(categories: arrayCategories)
             
         }) { (error, code, message) in
             
@@ -36,6 +39,12 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func makeCategoryView(categories:[Category]) {
+        
+        self.categoryView = CategoryView.init(frame: self.view.bounds, categories: categories)
+        self.view.addSubview(self.categoryView!)
+    }
     
 
 }

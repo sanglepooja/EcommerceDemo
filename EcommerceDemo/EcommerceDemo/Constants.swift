@@ -10,3 +10,7 @@ import Foundation
 
 let PRODUCTS_URL = "https://stark-spire-93433.herokuapp.com/json"
 
+let ProductCategoryTableViewCellId = "ProductCategoryTableViewCellId"
+
+let CategoryTableViewCellId = "CategoryTableViewCellId"
+		
