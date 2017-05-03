@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 import PKHUD
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, CategoryDelegate {
     
     var categoryView : CategoryView?
 
@@ -39,12 +39,26 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    //MARK: - Customview methods
     func makeCategoryView(categories:[Category]) {
         
         self.categoryView = CategoryView.init(frame: self.view.bounds, categories: categories)
+        self.categoryView?.delegate = self
         self.view.addSubview(self.categoryView!)
     }
     
 
+    //MARK: - Category delegate method
+    
+    func didSelectCategory(category: Category) {
+        
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: ProductsViewControllerId) as! ProductsViewController
+        controller.category = category
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+    }
 }

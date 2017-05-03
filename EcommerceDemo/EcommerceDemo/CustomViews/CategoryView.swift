@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol CategoryDelegate {
+    
+    func didSelectCategory(category: Category)
+}
+
 class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDelegate {
     
     lazy var tableViewCategory: UITableView = {
@@ -32,10 +37,10 @@ class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDe
     var arrayCategories : [Category] = []
     var arrayDataSource : [CategoryDatasource] = []
     var selectedRootCategoryIndex : Int?
-    var lastOpenRowDataSource : CategoryDatasource?
     var selectedRowCategory : Int?
     var previousOpenIndexes : [IndexPath] = []
-    
+    var delegate : CategoryDelegate?
+    var arraySelectedCategories : [Int] = []
     
     init(frame: CGRect, categories: [Category]) {
         
@@ -89,16 +94,10 @@ class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDe
             
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductCategoryTableViewCellId, for: indexPath as IndexPath) as! ProductCategoryTableViewCell
             
-//            let childCategory = childCategory?.categories[indexPath.row]
-            
-            
             cell.labelTitle.text = childCategory?.name
             return cell
             
-            
         }
-        
-        
     }
     
     
@@ -158,7 +157,7 @@ class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDe
                     
                 } else {
                     
-                    
+                    self.delegate?.didSelectCategory(category: childCategory!)
                 }
             }
         } else {
@@ -166,9 +165,9 @@ class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDe
             selectedRowCategory = indexPath.row
             self.expandCellsAt(indexPath: indexPath)
         }
-        
-        
     }
+    
+    //MARK: - Expand methods
     
     func expandCellsAt(indexPath: IndexPath) -> Void {
         
@@ -178,26 +177,34 @@ class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDe
         
         if !(childCategory?.categories.isEmpty)! {
             
-            var arrayRowDataSource : [CategoryDatasource] = []
-            var arrayIndexPath : [IndexPath] = []
-            
-            
-            for nestedChildCategory in (childCategory?.categories)! {
+            if !self.arraySelectedCategories.contains(where: { (categoryId) -> Bool in
                 
-                let childcategoryDatasource = CategoryDatasource(category: nestedChildCategory, categoryCelltype: CategoryCelltype.WithChildCategory)
-                arrayRowDataSource.append(childcategoryDatasource)
+                categoryId == childCategory?._id
+            }) {
                 
-                let indexPath = IndexPath(row: selectedRowCategory! + arrayRowDataSource.count, section: indexPath.section)
+                var arrayRowDataSource : [CategoryDatasource] = []
+                var arrayIndexPath : [IndexPath] = []
                 
-                arrayIndexPath.append(indexPath)
-                categoryDatasource.nestedCategoryDatasource.insert(childcategoryDatasource, at: selectedRowCategory! + arrayRowDataSource.count)
+                for nestedChildCategory in (childCategory?.categories)! {
+                    
+                    let childcategoryDatasource = CategoryDatasource(category: nestedChildCategory, categoryCelltype: CategoryCelltype.WithChildCategory)
+                    arrayRowDataSource.append(childcategoryDatasource)
+                    
+                    let indexPath = IndexPath(row: selectedRowCategory! + arrayRowDataSource.count, section: indexPath.section)
+                    
+                    arrayIndexPath.append(indexPath)
+                    categoryDatasource.nestedCategoryDatasource.insert(childcategoryDatasource, at: selectedRowCategory! + arrayRowDataSource.count)
+                }
+                
+                self.tableViewCategory.insertRows(at: arrayIndexPath, with: UITableViewRowAnimation.none)
+                previousOpenIndexes = arrayIndexPath
+                
+                self.arraySelectedCategories.append((childCategory?._id)!)
             }
             
-            self.tableViewCategory.insertRows(at: arrayIndexPath, with: UITableViewRowAnimation.none)
-            previousOpenIndexes = arrayIndexPath
         } else {
             
-            
+            self.delegate?.didSelectCategory(category: childCategory!)
         }
     }
     
@@ -224,8 +231,12 @@ class CategoryView: UIView, UITableViewDelegate, UITableViewDataSource, HeaderDe
         }
     }
     
+    
+    //MARK: - Header delegate methods
+    
     func didTapSectionAtIndex(index: Int) {
         
+        self.arraySelectedCategories.removeAll()
         self.selectedRootCategoryIndex = index
         
         let lastOpenParentDataSource = arrayDataSource[index]

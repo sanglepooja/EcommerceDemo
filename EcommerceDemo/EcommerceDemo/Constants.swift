@@ -14,3 +14,7 @@ let ProductCategoryTableViewCellId = "ProductCategoryTableViewCellId"
 
 let CategoryTableViewCellId = "CategoryTableViewCellId"
 		
+let ProductsViewControllerId = "ProductsViewControllerId"
+
+let ProductCollectionViewCellId = "ProductCollectionViewCellId"
+		
